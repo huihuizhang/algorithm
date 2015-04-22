@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<limits.h>
+#define X INT_MAX
+int m[210][210];
+void main()
+{
+	void DPMatirxChain(int p[], int n);
+	int p[210];
+	int i,n;
+	scanf("%d",&n);
+	for ( i = 0; i<=n; i++)
+		scanf("%d",&p[i]);
+	DPMatirxChain(p,n);
+	printf("%d",m[1][n]);
+	
+}
+
+void DPMatirxChain(int p[], int n)
+{
+	int i,j,k,c,q;
+	for(i =1; i<=n; i++ )
+		m[i][i] = 0;
+	for (c=2; c<= n; c++)
+	{
+		for ( i =1; i<=n-c+1; i++)
+		{
+			j = i+c-1;
+			m[i][j] = X;
+			for ( k =i ; k<j ; k++)
+			{
+				q = m[i][k] + m[k+1][j] + p[i-1] * p[k] *p[j];
+				if( q < m[i][j])
+				{
+					m[i][j] = q;
+				}
+			}
+		}
+	}
+}
